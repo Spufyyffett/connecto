@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chatapp</title>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <p><center>work in progress app</center></p>
+    <form>
+      <div>
+        <input type="radio" name="authType" id="loginRadio" />
+        <label for="loginRadio">Login</label>
+
+        <input type="radio" name="authType" id="registerRadio" checked />
+        <label for="registerRadio">Register</label>
+      </div>
+      <div class="usernameEntryField">
+        <label for="username">Username: </label>
+        <input
+          type="text"
+          name="username"
+          id="username"
+          placeholder="Enter Username"
+          required
+        />
+      </div>
+
+      <div class="passwordEntryField">
+        <label for="password">Password: </label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Enter your password"
+          required
+        />
+      </div>
+    </form>
+    <button type="submit" id="myBtn">Submit</button>
+    <br />
+    <p id="result"></p>
+    <script src="script.js"></script>
+  </body>
+</html>
