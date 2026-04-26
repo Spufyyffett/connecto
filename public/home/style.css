@@ -1,0 +1,91 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+:root {
+  --grey: #e5e5e5;
+  --black: #000000;
+  --white: #ffffff;
+  --red: #800f0f;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "poppins", sans-serif;
+}
+
+body {
+  background: var(--grey);
+  height: 100vh;
+  margin: 0;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+}
+
+.nav {
+  border-bottom: 1px solid #ccc;
+  width: 100vw;
+  height: 100px;
+  padding: 20px 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left {
+  width: 40px;
+  height: 40px;
+}
+
+.right:hover {
+  text-decoration: underline;
+}
+
+.container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 25% 75%;
+}
+
+.users {
+  width: 100%;
+  height: calc(100vh - 100px);
+  border-right: 2px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.profile {
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  padding: 20px 0px 20px 35px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.profile:hover {
+  background: #c1c1c1;
+}
+
+.profile:active {
+  background: #c1c1c1;
+}
+
+.profileImg {
+  width: 60px;
+  height: 60px;
+}
+
+.name {
+  margin-left: 30px;
+}
+
+.name #receiverName {
+  font-size: 20px;
+  text-transform: capitalize;
+}

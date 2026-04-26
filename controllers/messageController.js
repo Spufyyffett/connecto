@@ -10,9 +10,8 @@ exports.getMessages = async (req, res) => {
 
     const filtered = messages.filter((u) => u.sender === userId);
 
-    console.log("filtered messages:", filtered);
-
     filtered.sort((a, b) => a.time - b.time);
+
     res.json(filtered);
   } catch (error) {
     console.log(error);

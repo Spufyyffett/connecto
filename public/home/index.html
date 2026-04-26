@@ -3,35 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HOME PAGE</title>
+    <title>ChatApp</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <p>welcome to home page</p>
-    <br />
-    <p id="currUser">Current user:</p>
-    <form>
-      <label for="receiver">Receiver: </label>
-      <input
-        type="text"
-        name="reveiver"
-        id="receiver"
-        placeholder="Enter username of receiver"
-      />
-
-      <label for="ipMessage">Enter a messege: </label>
-      <input
-        type="text"
-        name="ipMessage"
-        id="ipMessage"
-        placeholder="message"
-      />
-    </form>
-    <button type="submit" id="myBtn">Send</button>
-
-    <br /><br />
-
-    <p id="result"></p>
+    <nav>
+      <div class="nav">
+        <div class="left">
+          <img src="img/logo.svg" alt="logo" />
+        </div>
+        <div class="right">
+          <span id="currUser"></span>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="users" id="users"></div>
+      <div class="messages"></div>
+    </div>
     <script src="script.js"></script>
   </body>
 </html>

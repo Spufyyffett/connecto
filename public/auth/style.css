@@ -1,4 +1,114 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+:root {
+  --grey: #e5e5e5;
+  --black: #000000;
+  --white: #ffffff;
+  --red: #800f0f;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "poppins", sans-serif;
+}
+
 body {
-  margin: auto;
-  font-family: sans-serif;
+  background: var(--grey);
+  color: var(--white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.container {
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 10px;
+  width: 400px;
+  border: 1px solid var(--accent-soft);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.form {
+  display: none;
+}
+
+h2 {
+  margin-bottom: 1rem;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 5px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--black);
+  border-radius: 5px;
+  background: var(--black);
+  color: var(--white);
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-top: 35px;
+}
+
+/* Disabled button */
+button:disabled {
+  border: none;
+  background: #00000033;
+  color: var(--white);
+  cursor: not-allowed;
+}
+
+button:hover {
+  background: var(--grey);
+  color: var(--black);
+}
+/* Tabs */
+.tabs {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 1rem;
+}
+
+.tabs label {
+  cursor: pointer;
+  font-weight: bold;
+  padding: 12px 30px;
+  border-radius: 5px;
+  color: var(--black);
+  transition: 0.3s;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+#loginTab:checked ~ .tabs label[for="loginTab"],
+#registerTab:checked ~ .tabs label[for="registerTab"] {
+  background: var(--black);
+  color: var(--white);
+}
+
+#loginTab:checked ~ .forms #loginForm,
+#registerTab:checked ~ .forms #registerForm {
+  display: block;
+}
+
+.result {
+  color: var(--red);
+  font-weight: 700;
 }

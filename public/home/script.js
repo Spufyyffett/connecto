@@ -29,42 +29,50 @@ async function isUserLogged() {
     currUser = response.user.sub;
     document.getElementById("currUser").innerText =
       document.getElementById("currUser").textContent + " " + currUser;
-    displayMessages();
+    getUsersAndMessages();
   } catch (error) {
     console.log(error);
   }
 }
 
-async function displayMessages() {
-  const data = await fetch("/messages", {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+async function getUsersAndMessages() {
+  try {
+    const response = await fetch("/messages", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await response.json();
+    displayMessages(data);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-async function sendMessage() {
-  const txtMessage = document.getElementById("ipMessage").value.trim();
-  const receiver = document.getElementById("receiver").value.trim();
-  const printRes = document.getElementById("result");
+function displayMessages(data) {
+  let profileContainer = document.getElementById("users");
+  profileContainer.innerHTML = "";
 
-  const data = await fetch("/messages", {
-    method: "POST",
-    headers: {
-      "content-type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify({
-      sender: currUser,
-      receiver: receiver,
-      message: txtMessage,
-    }),
+  if (Object.keys(data).length === 0) {
+    return;
+  }
+
+  let recipients = [];
+  Object.values(data).forEach((obj) => {
+    if (!recipients.includes(obj.receiver)) {
+      recipients.push(obj.receiver);
+    }
   });
 
-  const response = await data.json();
-
-  printRes.innerText = response.note;
+  for (const val of recipients) {
+    profileContainer.innerHTML += `<div class="profile">
+          <div class="profileImg">
+            <img src="img/userProfile.svg" alt="profile" />
+          </div>
+          <div class="name">
+            <span class="receiverName">${val}</span>
+          </div>
+        </div>`;
+  }
 }
-
-document.getElementById("myBtn").addEventListener("click", sendMessage);

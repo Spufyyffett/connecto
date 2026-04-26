@@ -7,41 +7,57 @@
 
     <link rel="stylesheet" href="style.css" />
   </head>
+
   <body>
-    <p><center>work in progress app</center></p>
-    <form>
-      <div>
-        <input type="radio" name="authType" id="loginRadio" />
-        <label for="loginRadio">Login</label>
+    <div class="container">
+      <input type="radio" id="loginTab" name="tab" checked />
+      <input type="radio" id="registerTab" name="tab" />
 
-        <input type="radio" name="authType" id="registerRadio" checked />
-        <label for="registerRadio">Register</label>
-      </div>
-      <div class="usernameEntryField">
-        <label for="username">Username: </label>
-        <input
-          type="text"
-          name="username"
-          id="username"
-          placeholder="Enter Username"
-          required
-        />
+      <div class="tabs">
+        <label for="loginTab">Login</label>
+        <label for="registerTab">Register</label>
       </div>
 
-      <div class="passwordEntryField">
-        <label for="password">Password: </label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          placeholder="Enter your password"
-          required
-        />
+      <div class="forms">
+        <!-- Login -->
+        <div id="loginForm" class="form">
+          <h2>Login</h2>
+          <input
+            type="text"
+            id="loginUsername"
+            placeholder="Username"
+            oninput="checkLogin()"
+          />
+          <input
+            type="password"
+            id="loginPassword"
+            placeholder="Password"
+            oninput="checkLogin()"
+          />
+          <button id="loginBtn" disabled>Login</button>
+        </div>
+
+        <!-- Register -->
+        <div id="registerForm" class="form">
+          <h2>Register</h2>
+          <input
+            type="text"
+            id="registerUsername"
+            placeholder="Username"
+            oninput="checkRegister()"
+          />
+          <input
+            type="password"
+            id="registerPassword"
+            placeholder="Password"
+            oninput="checkRegister()"
+          />
+          <button id="registerBtn" disabled>Register</button>
+        </div>
       </div>
-    </form>
-    <button type="submit" id="myBtn">Submit</button>
-    <br />
-    <p id="result"></p>
+
+      <p id="result" class="result"></p>
+    </div>
     <script src="script.js"></script>
   </body>
 </html>
