@@ -4,7 +4,7 @@
   --grey: #e5e5e5;
   --black: #000000;
   --white: #ffffff;
-  --red: #800f0f;
+  --yellow: #e4a803;
 }
 
 * {
@@ -15,8 +15,8 @@
 }
 
 body {
-  background: var(--grey);
-  color: var(--white);
+  background: var(--white);
+  color: var(--black);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,7 +29,7 @@ body {
   padding: 2rem;
   border-radius: 10px;
   width: 400px;
-  border: 1px solid var(--accent-soft);
+  border: 1px solid var(--grey);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   text-align: center;
 }
@@ -55,7 +55,7 @@ input[type="password"] {
 button {
   width: 100%;
   padding: 10px;
-  border: 1px solid var(--black);
+  border: none;
   border-radius: 5px;
   background: var(--black);
   color: var(--white);
@@ -63,18 +63,21 @@ button {
   cursor: pointer;
   transition: 0.3s;
   margin-top: 35px;
+  opacity: 1;
 }
 
 /* Disabled button */
 button:disabled {
   border: none;
-  background: #00000033;
-  color: var(--white);
+  background: var(--grey);
+  color: var(--black);
   cursor: not-allowed;
+  opacity: 0.6;
 }
 
-button:hover {
-  background: var(--grey);
+button:not(:disabled):hover,
+button:not(:disabled):active {
+  background: var(--yellow);
   color: var(--black);
 }
 /* Tabs */
@@ -99,8 +102,8 @@ input[type="radio"] {
 
 #loginTab:checked ~ .tabs label[for="loginTab"],
 #registerTab:checked ~ .tabs label[for="registerTab"] {
-  background: var(--black);
-  color: var(--white);
+  background: var(--yellow);
+  color: var(--black);
 }
 
 #loginTab:checked ~ .forms #loginForm,

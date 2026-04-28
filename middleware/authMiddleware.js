@@ -5,7 +5,10 @@ module.exports = function (req, res, next) {
     const authHeader = req.headers.authorization;
 
     if (!authHeader) {
-      return res.status(401).redirect("/auth");
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized",
+      });
     }
 
     const sessionToken = authHeader.split(" ")[1];
@@ -14,7 +17,9 @@ module.exports = function (req, res, next) {
 
     next();
   } catch (error) {
-    console.log(error);
-    res.sendStatus(403);
+    res.status(403).json({
+      success: false,
+      message: "Invalid token",
+    });
   }
 };

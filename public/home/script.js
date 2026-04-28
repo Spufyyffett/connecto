@@ -1,4 +1,5 @@
 let currUser = "";
+let selectedUser = "";
 const token = sessionStorage.getItem("sessionToken");
 
 window.addEventListener("load", isUserLogged);
@@ -27,8 +28,8 @@ async function isUserLogged() {
 
     const response = await data.json();
     currUser = response.user.sub;
-    document.getElementById("currUser").innerText =
-      document.getElementById("currUser").textContent + " " + currUser;
+    document.getElementById("user-name").innerText =
+      document.getElementById("user-name").textContent + " " + currUser;
     getUsersAndMessages();
   } catch (error) {
     console.log(error);
@@ -44,35 +45,138 @@ async function getUsersAndMessages() {
       },
     });
     const data = await response.json();
-    displayMessages(data);
+    displayUsers(data);
   } catch (error) {
     console.log(error);
   }
 }
 
-function displayMessages(data) {
-  let profileContainer = document.getElementById("users");
+function displayUsers(data) {
+  let profileContainer = document.getElementById("user-list");
   profileContainer.innerHTML = "";
 
-  if (Object.keys(data).length === 0) {
-    return;
-  }
+  if (!data || data.length === 0) return;
 
-  let recipients = [];
-  Object.values(data).forEach((obj) => {
-    if (!recipients.includes(obj.receiver)) {
-      recipients.push(obj.receiver);
-    }
+  let users = new Set();
+
+  data.forEach((obj) => {
+    const otherUser = obj.sender === currUser ? obj.receiver : obj.sender;
+
+    users.add(otherUser);
   });
 
-  for (const val of recipients) {
-    profileContainer.innerHTML += `<div class="profile">
-          <div class="profileImg">
-            <img src="img/userProfile.svg" alt="profile" />
-          </div>
-          <div class="name">
-            <span class="receiverName">${val}</span>
-          </div>
-        </div>`;
+  users.forEach((val) => {
+    const li = document.createElement("li");
+    li.classList.add("user-item");
+
+    li.innerHTML = `<div class="avatar">
+                      <img src="img/userProfile.svg" alt="${val} avatar"/>
+                    </div>
+                    <div class="user-info">
+                      <h4>${val}</h4>
+                    </div>`;
+
+    li.addEventListener("click", () => {
+      li.classList.add("active");
+      selectedUser = val;
+      openChat(selectedUser);
+    });
+
+    profileContainer.appendChild(li);
+  });
+}
+
+async function openChat(selectedUser) {
+  try {
+    const response = await fetch("/messages", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const data = await response.json();
+
+    const chat = data.filter((msg) => {
+      return (
+        (msg.sender === currUser && msg.receiver === selectedUser) ||
+        (msg.sender === selectedUser && msg.receiver === currUser)
+      );
+    });
+
+    displayMsg(chat);
+  } catch (error) {
+    console.log(error);
   }
 }
+
+function displayMsg(chat) {
+  const chatContainer = document.getElementById("chatMessages");
+  chatContainer.innerHTML = "";
+
+  chat.forEach((msg) => {
+    const div = document.createElement("div");
+    div.classList.add("message");
+
+    if (msg.sender === currUser) {
+      div.classList.add("sent");
+    } else {
+      div.classList.add("received");
+    }
+
+    div.innerHTML = msg.messageContent;
+
+    chatContainer.appendChild(div);
+  });
+
+  chatContainer.scrollTop = chatContainer.scrollHeight;
+}
+
+async function sendMessage() {
+  try {
+    const messageInput = document.getElementById("messageInput");
+
+    const message = messageInput.value?.trim();
+
+    if (!message || message.length === 0) {
+      return;
+    }
+
+    const response = await fetch("/messages", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ currUser, selectedUser, message }),
+    });
+
+    const data = await response.json();
+
+    if (!data.success) {
+      console.log("Error while sending message");
+      return;
+    }
+
+    const div = document.createElement("div");
+    const chatContainer = document.getElementById("chatMessages");
+
+    div.classList.add("message", "sent");
+    div.innerHTML = message;
+
+    chatContainer.appendChild(div);
+
+    messageInput.value = " ";
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+document.getElementById("sendBtn").addEventListener("click", sendMessage);
+document.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    sendMessage();
+  } else {
+    return;
+  }
+});

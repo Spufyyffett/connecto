@@ -8,10 +8,11 @@ exports.getMessages = async (req, res) => {
 
     const messages = await readJSON("./data/messagesDB.json");
 
-    const filtered = messages.filter((u) => u.sender === userId);
+    const filtered = messages.filter(
+      (u) => u.sender === userId || u.receiver === userId,
+    );
 
-    filtered.sort((a, b) => a.time - b.time);
-
+    filtered.sort((a, b) => new Date(a.time) - new Date(b.time));
     res.json(filtered);
   } catch (error) {
     console.log(error);
@@ -25,8 +26,8 @@ exports.sendMessage = async (req, res) => {
 
     const newMessage = {
       id: messageDB.length ? messageDB.at(-1).id + 1 : 1,
-      sender: req.body.sender,
-      receiver: req.body.receiver,
+      sender: req.body.currUser,
+      receiver: req.body.selectedUser,
       messageContent: req.body.message?.toString() || "",
       time: Date.now(),
     };
