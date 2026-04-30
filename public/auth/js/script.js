@@ -39,9 +39,7 @@ function checkRegister() {
   document.getElementById("registerBtn").disabled = !(username && password);
 }
 
-async function handleAuth(e) {
-  e.preventDefault();
-
+async function handleAuth() {
   const isLogin = document.getElementById("loginTab").checked;
 
   let type = "register";
@@ -95,3 +93,29 @@ document
 
 document.getElementById("loginBtn").addEventListener("click", handleAuth);
 document.getElementById("registerBtn").addEventListener("click", handleAuth);
+
+document.getElementById("loginViewPassBox").addEventListener("click", () => {
+  const loginPassField = document.getElementById("loginPassword");
+  const loginViewPassField = document.getElementById("loginViewPass");
+  const loginPassLabel = document.getElementById("loginPassLabel");
+  if (loginViewPassField.checked) {
+    loginPassField.type = "text";
+    loginPassLabel.innerText = "Hide Password";
+  } else {
+    loginPassField.type = "password";
+    loginPassLabel.innerText = "Show Password";
+  }
+});
+
+document.getElementById("regViewPassBox").addEventListener("click", () => {
+  const regPassField = document.getElementById("registerPassword");
+  const regViewPassField = document.getElementById("regViewPass");
+  const regPassLabel = document.getElementById("regPassLabel");
+  if (regViewPassField.checked) {
+    regPassField.type = "text";
+    regPassLabel.innerText = "Hide Password";
+  } else {
+    regPassField.type = "password";
+    regPassLabel.innerText = "Show Password";
+  }
+});

@@ -44,6 +44,7 @@ exports.register = async (req, res) => {
     const exists = loginCred.find(
       (u) => u.username === req.body.username?.trim(),
     );
+
     if (exists) {
       return res.status(409).json({ message: "Username taken" });
     }
@@ -66,7 +67,7 @@ exports.register = async (req, res) => {
       { expiresIn: "12h" },
     );
 
-    res.json({ success: true, token });
+    res.json({ message: "Register Successfull", success: true, token });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Something went wrong" });

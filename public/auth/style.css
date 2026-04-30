@@ -5,6 +5,7 @@
   --black: #000000;
   --white: #ffffff;
   --yellow: #e4a803;
+  --red: #ff2c2c;
 }
 
 * {
@@ -14,17 +15,41 @@
   font-family: "poppins", sans-serif;
 }
 
+img {
+  width: 100%;
+  height: 100%;
+}
+
 body {
   background: var(--white);
   color: var(--black);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
   margin: 0;
 }
 
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.main-header {
+  background: var(--yellow);
+  color: var(--white);
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+}
+
 .container {
+  margin: auto;
   background: var(--white);
   padding: 2rem;
   border-radius: 10px;
@@ -66,7 +91,6 @@ button {
   opacity: 1;
 }
 
-/* Disabled button */
 button:disabled {
   border: none;
   background: var(--grey);
@@ -80,7 +104,7 @@ button:not(:disabled):active {
   background: var(--yellow);
   color: var(--black);
 }
-/* Tabs */
+
 .tabs {
   display: flex;
   justify-content: space-around;
@@ -114,4 +138,8 @@ input[type="radio"] {
 .result {
   color: var(--red);
   font-weight: 700;
+}
+
+.viewPass {
+  cursor: pointer;
 }

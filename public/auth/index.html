@@ -4,60 +4,88 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chatapp</title>
-
     <link rel="stylesheet" href="style.css" />
   </head>
 
   <body>
-    <div class="container">
-      <input type="radio" id="loginTab" name="tab" checked />
-      <input type="radio" id="registerTab" name="tab" />
+    <div class="app-container">
+      <header class="main-header">
+        <div class="logo">
+          <img src="img/logo.svg" alt="Logo" />
+        </div>
+      </header>
+      <div class="container">
+        <input type="radio" id="loginTab" name="tab" checked />
+        <input type="radio" id="registerTab" name="tab" />
 
-      <div class="tabs">
-        <label for="loginTab">Login</label>
-        <label for="registerTab">Register</label>
-      </div>
-
-      <div class="forms">
-        <!-- Login -->
-        <div id="loginForm" class="form">
-          <h2>Login</h2>
-          <input
-            type="text"
-            id="loginUsername"
-            placeholder="Username"
-            oninput="checkLogin()"
-          />
-          <input
-            type="password"
-            id="loginPassword"
-            placeholder="Password"
-            oninput="checkLogin()"
-          />
-          <button id="loginBtn" disabled>Login</button>
+        <div class="tabs">
+          <label for="loginTab">Login</label>
+          <label for="registerTab">Register</label>
         </div>
 
-        <!-- Register -->
-        <div id="registerForm" class="form">
-          <h2>Register</h2>
-          <input
-            type="text"
-            id="registerUsername"
-            placeholder="Username"
-            oninput="checkRegister()"
-          />
-          <input
-            type="password"
-            id="registerPassword"
-            placeholder="Password"
-            oninput="checkRegister()"
-          />
-          <button id="registerBtn" disabled>Register</button>
-        </div>
-      </div>
+        <div class="forms">
+          <!-- Login -->
+          <div id="loginForm" class="form">
+            <h2>Login</h2>
+            <input
+              type="text"
+              id="loginUsername"
+              placeholder="Username"
+              oninput="checkLogin()"
+            />
+            <input
+              type="password"
+              id="loginPassword"
+              placeholder="Password"
+              oninput="checkLogin()"
+            />
+            <div id="loginViewPassBox">
+              <input
+                type="checkbox"
+                name="viewPass"
+                id="loginViewPass"
+                class="viewPass"
+              />
+              <label for="loginViewPass" class="viewPass" id="loginPassLabel"
+                >Show Password</label
+              >
+            </div>
+            <button id="loginBtn" disabled>Login</button>
+          </div>
 
-      <p id="result" class="result"></p>
+          <!-- Register -->
+          <div id="registerForm" class="form">
+            <h2>Register</h2>
+            <input
+              type="text"
+              id="registerUsername"
+              placeholder="Username"
+              oninput="checkRegister()"
+            />
+            <input
+              type="password"
+              id="registerPassword"
+              placeholder="Password"
+              oninput="checkRegister()"
+            />
+            <div id="regViewPassBox">
+              <input
+                type="checkbox"
+                name="viewPass"
+                id="regViewPass"
+                class="viewPass"
+              />
+              <label for="regViewPass" class="viewPass" id="regPassLabel"
+                >Show Password</label
+              >
+            </div>
+            <button id="registerBtn" disabled>Register</button>
+          </div>
+        </div>
+        <p id="result" class="result"></p>
+      </div>
     </div>
-    <script src="script.js"></script>
+
+    <script src="js/script.js"></script>
   </body>
 </html>

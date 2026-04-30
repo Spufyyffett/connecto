@@ -15,9 +15,11 @@ const PORT = 5500;
 
 const messageRoutes = require("./routes/messages");
 const authRoutes = require("./routes/auth");
+const userRoutes = require("./routes/user");
 
 app.use("/messages", messageRoutes);
 app.use("/auth", authRoutes);
+app.use("/search", userRoutes);
 
 app.listen(PORT, (req, res) => {
   console.log("Server listening at Port ", PORT);
