@@ -1,10 +1,9 @@
-//verifyToken method
 import { state, getToken } from "./state.js";
 
+//verifyToken method
 export async function verifyToken(token) {
   try {
     const token = getToken();
-
     const response = await fetch("http://localhost:5500/auth/verify", {
       method: "GET",
       headers: {
@@ -24,7 +23,6 @@ export async function verifyToken(token) {
 }
 
 //get messages
-
 export async function getMessages() {
   try {
     const token = getToken();
@@ -43,7 +41,6 @@ export async function getMessages() {
 }
 
 //send message
-
 export async function sendMessage(message) {
   try {
     const token = getToken();
@@ -59,6 +56,7 @@ export async function sendMessage(message) {
         message,
       }),
     });
+
     return await response.json();
   } catch (error) {
     console.log(error);
@@ -67,7 +65,6 @@ export async function sendMessage(message) {
 }
 
 //search query for users
-
 export async function getQueryUsers(value) {
   try {
     const token = getToken();
@@ -77,6 +74,7 @@ export async function getQueryUsers(value) {
         Authorization: `Bearer ${token}`,
       },
     });
+
     return await response.json();
   } catch (error) {
     console.log(error);

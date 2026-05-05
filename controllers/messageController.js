@@ -1,6 +1,7 @@
 //controllers/messageController.js
 
 const { readJSON, writeJSON } = require("../utils/fileHandler");
+const { sendToUser } = require("../socketServer");
 
 exports.getMessages = async (req, res) => {
   try {
@@ -47,6 +48,12 @@ exports.sendMessage = async (req, res) => {
     await writeJSON("./data/messagesDB.json", messageDB);
 
     res.json({ success: true, note: "Message stored" });
+
+    sendToUser(req.body.selectedUser, "liveChat", {
+      sender: req.body.currUser,
+      receiver: req.body.selectedUser,
+      messageContent: req.body.message?.toString() || "",
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, note: "Something went wrong" });

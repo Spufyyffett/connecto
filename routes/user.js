@@ -2,10 +2,9 @@
 
 const express = require("express");
 const router = express.Router();
-
 const { findUser } = require("../controllers/userController");
-const authMiddleware = require("../middleware/authMiddleware");
+const { authMiddlewareHTTP } = require("../middleware/authMiddleware");
 
-router.get("/", authMiddleware, findUser);
+router.get("/", authMiddlewareHTTP, findUser);
 
 module.exports = router;

@@ -5,7 +5,6 @@ import { getMessages, sendMessage } from "./api.js";
 export async function displayChat() {
   try {
     const data = await getMessages();
-
     const chat = data.filter((msg) => {
       return (
         (msg.sender === state.currUser &&
@@ -14,26 +13,9 @@ export async function displayChat() {
       );
     });
 
-    // display messages in chat
     const chatContainer = document.getElementById("chatMessages");
     chatContainer.innerHTML = "";
-
-    chat.forEach((msg) => {
-      const div = document.createElement("div");
-      div.classList.add("message");
-
-      if (msg.sender === state.currUser) {
-        div.classList.add("sent");
-      } else {
-        div.classList.add("received");
-      }
-
-      div.innerHTML = `<span>${msg.messageContent}</span>`;
-
-      chatContainer.appendChild(div);
-    });
-
-    chatContainer.scrollTop = chatContainer.scrollHeight;
+    chat.forEach(appendNewMessages);
 
     return true;
   } catch (error) {
@@ -42,8 +24,26 @@ export async function displayChat() {
   }
 }
 
-//Send message method
+// append message to DOM method
+export function appendNewMessages(msg) {
+  const chatContainer = document.getElementById("chatMessages");
+  const isRelevantChat =
+    (msg.sender === state.selectedUser && msg.receiver === state.currUser) ||
+    (msg.sender === state.currUser && msg.receiver === state.selectedUser);
 
+  if (!isRelevantChat) return;
+
+  const div = document.createElement("div");
+  div.classList.add("message");
+  div.classList.add(msg.sender === state.currUser ? "sent" : "received");
+  div.innerHTML = `<span>${msg.messageContent}</span>`;
+
+  chatContainer.appendChild(div);
+
+  chatContainer.scrollTop = chatContainer.scrollHeight;
+}
+
+//Send message method
 export async function sendMessageFromUser() {
   try {
     const messageInput = document.getElementById("messageInput");
@@ -64,14 +64,11 @@ export async function sendMessageFromUser() {
     const div = document.createElement("div");
 
     div.classList.add("message", "sent");
-
     div.innerHTML = `<span>${message}</span>`;
-
     chatContainer.appendChild(div);
+    messageInput.value = "";
 
     chatContainer.scrollTop = chatContainer.scrollHeight;
-
-    messageInput.value = "";
   } catch (error) {
     console.log(error);
     return false;

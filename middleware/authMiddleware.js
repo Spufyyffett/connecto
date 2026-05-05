@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 
-module.exports = function (req, res, next) {
+exports.authMiddlewareHTTP = (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
 
@@ -21,5 +21,25 @@ module.exports = function (req, res, next) {
       success: false,
       message: "Invalid token",
     });
+  }
+};
+
+exports.authMiddlewareSocket = (socket, next) => {
+  try {
+    const token = socket.handshake.auth.token;
+
+    if (!token) {
+      next(new Error("Token not valid or token not found. Please re-login"));
+    }
+
+    const valid = jwt.verify(token, process.env.JWT_SEC_KEY);
+
+    if (valid) {
+      socket.username = valid.sub;
+    }
+    next();
+  } catch (error) {
+    console.log(error);
+    next(new Error("Something went wrong!"));
   }
 };

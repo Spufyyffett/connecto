@@ -5,7 +5,6 @@ import { displayChat } from "./chat.js";
 
 export async function displayUsers() {
   const data = await getMessages();
-
   const userList = document.getElementById("user-list");
   userList.innerHTML = "";
 
@@ -30,7 +29,6 @@ export async function displayUsers() {
   users.forEach((user) => {
     const li = document.createElement("li");
     li.classList.add("user-item");
-
     li.innerHTML = `
       <div class="avatar">
         <img src="img/userProfile.svg" alt="${user} avatar"/>
@@ -39,19 +37,16 @@ export async function displayUsers() {
         <h4>${user}</h4>
       </div>
     `;
-
     li.addEventListener("click", () => {
       document.querySelectorAll(".user-item").forEach((item) => {
         item.classList.remove("active");
       });
 
       li.classList.add("active");
-
       state.selectedUser = user;
 
       displayChat();
     });
-
     userList.appendChild(li);
   });
 }
@@ -60,7 +55,6 @@ export async function displayUsers() {
 
 export async function displaySearchedUsers(users) {
   const container = document.getElementById("user-list");
-
   const existing = new Set(
     [...container.querySelectorAll(".user-item h4")].map((el) =>
       el.innerText.toLowerCase(),
@@ -72,7 +66,6 @@ export async function displaySearchedUsers(users) {
 
     const li = document.createElement("li");
     li.classList.add("user-item", "search-result");
-
     li.innerHTML = `
       <div class="avatar">
         <img src="img/userProfile.svg" alt="${user.username} avatar"/>
@@ -81,32 +74,26 @@ export async function displaySearchedUsers(users) {
         <h4>${user.username}</h4>
       </div>
     `;
-
     li.addEventListener("click", () => {
       document
         .querySelectorAll(".user-item")
         .forEach((item) => item.classList.remove("active"));
-
       li.classList.add("active");
       state.selectedUser = user.username;
       openChat(state.selectedUser);
     });
-
     container.prepend(li);
   });
 }
 
 //find user functionality with 300ms debounce
-
 export function initUserSearch() {
   const search = document.getElementById("findUsers");
   let timeout;
 
   search.addEventListener("input", (e) => {
     clearTimeout(timeout);
-
     const value = e.target.value;
-
     timeout = setTimeout(async () => {
       if (!value) {
         displayUsers();
