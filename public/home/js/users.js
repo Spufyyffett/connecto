@@ -2,6 +2,7 @@
 import { getMessages, getQueryUsers } from "./api.js";
 import { state } from "./state.js";
 import { displayChat } from "./chat.js";
+import { pendingUsers } from "./socket.js";
 
 export async function displayUsers() {
   const data = await getMessages();
@@ -29,9 +30,11 @@ export async function displayUsers() {
   users.forEach((user) => {
     const li = document.createElement("li");
     li.classList.add("user-item");
+    li.setAttribute("data-username", user);
     li.innerHTML = `
       <div class="avatar">
         <img src="img/userProfile.svg" alt="${user} avatar"/>
+        <span class="statusDot offline" title="Offline"></span>
       </div>
       <div class="user-info">
         <h4>${user}</h4>
@@ -49,6 +52,8 @@ export async function displayUsers() {
     });
     userList.appendChild(li);
   });
+
+  pendingUsers.forEach((user) => updateUserStatus(user, "online"));
 }
 
 //display searched users
@@ -84,6 +89,24 @@ export async function displaySearchedUsers(users) {
     });
     container.prepend(li);
   });
+}
+
+export function updateUserStatus(username, status) {
+  if (!username || !status) {
+    return;
+  }
+  const userRow = document.querySelector(`li[data-username=${username}]`);
+
+  if (userRow) {
+    const dot = userRow.querySelector(".statusDot");
+    if (status === "online") {
+      dot.classList.replace("offline", "online");
+      dot.title = "online";
+    } else {
+      dot.classList.replace("online", "offline");
+      dot.title = "offline";
+    }
+  }
 }
 
 //find user functionality with 300ms debounce

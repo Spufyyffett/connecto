@@ -1,5 +1,6 @@
 import { appendNewMessages } from "./chat.js";
 import { state, getToken } from "./state.js";
+import { updateUserStatus } from "./users.js";
 
 export function initSocket() {
   state.socket = io({
@@ -17,16 +18,25 @@ export function initSocket() {
   });
 }
 
+export let pendingUsers = [];
 export function listenToEvents() {
   if (!state.socket) {
     return;
   }
 
-  state.socket.on("welcome_event", (data) => {
-    console.log("Server says: ", data.message);
-  });
-
   state.socket.on("liveChat", (message) => {
     appendNewMessages(message);
+  });
+
+  state.socket.on("initialOnlineList", (users) => {
+    pendingUsers = users;
+
+    users.forEach((user) => {
+      updateUserStatus(user, "online");
+    });
+  });
+
+  state.socket.on("userStatus", (data) => {
+    updateUserStatus(data.username, data.status);
   });
 }

@@ -6,13 +6,14 @@ export async function isUserLogged() {
   try {
     const token = getToken();
     if (!token) {
+      console.trace("because...");
       console.log("No token found. Please re-login");
       return false;
     }
 
     const data = await verifyToken(token);
     state.currUser = data.user.sub;
-    document.getElementById("user-name").innerText += state.currUser;
+    // document.getElementById("user-name").innerText += state.currUser;
 
     return true;
   } catch (error) {

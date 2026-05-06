@@ -69,11 +69,27 @@ export async function sendMessageFromUser() {
     messageInput.value = "";
 
     chatContainer.scrollTop = chatContainer.scrollHeight;
+    document.getElementById("messageInput").style.height = "auto";
   } catch (error) {
     console.log(error);
     return false;
   }
 }
+
+const textarea = document.getElementById("messageInput");
+
+textarea.addEventListener("input", () => {
+  textarea.style.height = "auto";
+  textarea.style.height = textarea.scrollHeight + "px";
+
+  if (textarea.scrollHeight > 150) {
+    // your max height
+    textarea.style.height = "150px";
+    textarea.style.overflowY = "auto";
+  } else {
+    textarea.style.overflowY = "hidden";
+  }
+});
 
 //Event listener for send message
 export function initChatEvents() {
