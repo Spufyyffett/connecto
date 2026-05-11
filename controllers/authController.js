@@ -59,13 +59,14 @@ exports.register = async (req, res) => {
     }
 
     loginCred.push(newUser);
-    await writeJSON("./data/credentials.json", loginCred);
 
     const token = jwt.sign(
       { sub: newUser.username, iat: Date.now() },
       process.env.JWT_SEC_KEY,
       { expiresIn: "12h" },
     );
+
+    await writeJSON("./data/credentials.json", loginCred);
 
     res.json({ message: "Register Successfull", success: true, token });
   } catch (error) {

@@ -64,6 +64,29 @@ export async function sendMessage(message) {
   }
 }
 
+//send file to server
+export async function sendFile(uploadedFile) {
+  try {
+    const formData = new FormData();
+    formData.append("file", uploadedFile);
+    formData.append("currUser", state.currUser);
+    formData.append("selectedUser", state.selectedUser);
+
+    const token = getToken();
+    const response = await fetch("/messages/upload", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
+    });
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
+
 //search query for users
 export async function getQueryUsers(value) {
   try {

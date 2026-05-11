@@ -34,8 +34,10 @@ exports.initSocket = (server) => {
 
 exports.sendToUser = (username, event, data) => {
   const socketId = userSocketMap.get(username);
+  console.log(username, event, data);
 
   if (socketId && io) {
+    console.log(username, event, data);
     io.to(socketId).emit(event, data);
     return true;
   }

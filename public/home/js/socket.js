@@ -24,8 +24,9 @@ export function listenToEvents() {
     return;
   }
 
-  state.socket.on("liveChat", (message) => {
-    appendNewMessages(message);
+  state.socket.on("liveChat", (data) => {
+    console.log("new file arrived");
+    appendNewMessages(data);
   });
 
   state.socket.on("initialOnlineList", (users) => {

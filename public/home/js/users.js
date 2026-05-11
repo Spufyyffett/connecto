@@ -2,6 +2,14 @@
 import { getMessages, getQueryUsers } from "./api.js";
 import { state } from "./state.js";
 import { displayChat } from "./chat.js";
+import {
+  displayUsersOnBlur,
+  openChatOnClick,
+  removeChatAndTextarea,
+  getInputToDisplaySearchedUsers,
+  clearInputBtn,
+  clearSearchInput,
+} from "./eventListeners.js";
 import { pendingUsers } from "./socket.js";
 
 export async function displayUsers() {
@@ -40,16 +48,8 @@ export async function displayUsers() {
         <h4>${user}</h4>
       </div>
     `;
-    li.addEventListener("click", () => {
-      document.querySelectorAll(".user-item").forEach((item) => {
-        item.classList.remove("active");
-      });
-
-      li.classList.add("active");
-      state.selectedUser = user;
-
-      displayChat();
-    });
+    li.title = `${user} is offline`;
+    openChatOnClick(li, user);
     userList.appendChild(li);
   });
 
@@ -57,9 +57,13 @@ export async function displayUsers() {
 }
 
 //display searched users
-
-export async function displaySearchedUsers(users) {
+export async function displaySearchedUsers(users, value) {
   const container = document.getElementById("user-list");
+  container.innerHTML = "";
+
+  if (!users || users.length === 0) {
+    container.innerHTML = `<p class="no-user">No users found with username "${value}"</p>`;
+  }
   const existing = new Set(
     [...container.querySelectorAll(".user-item h4")].map((el) =>
       el.innerText.toLowerCase(),
@@ -67,27 +71,21 @@ export async function displaySearchedUsers(users) {
   );
 
   users.forEach((user) => {
-    if (existing.has(user.username.toLowerCase())) return;
-
     const li = document.createElement("li");
     li.classList.add("user-item", "search-result");
     li.innerHTML = `
       <div class="avatar">
         <img src="img/userProfile.svg" alt="${user.username} avatar"/>
+        
       </div>
       <div class="user-info">
         <h4>${user.username}</h4>
       </div>
     `;
-    li.addEventListener("click", () => {
-      document
-        .querySelectorAll(".user-item")
-        .forEach((item) => item.classList.remove("active"));
-      li.classList.add("active");
-      state.selectedUser = user.username;
-      openChat(state.selectedUser);
-    });
-    container.prepend(li);
+
+    openChatOnClick(li, user.username);
+    container.appendChild(li);
+    pendingUsers.forEach((user) => updateUserStatus(user, "online"));
   });
 }
 
@@ -112,19 +110,16 @@ export function updateUserStatus(username, status) {
 //find user functionality with 300ms debounce
 export function initUserSearch() {
   const search = document.getElementById("findUsers");
+  const container = document.getElementById("user-list");
   let timeout;
 
-  search.addEventListener("input", (e) => {
-    clearTimeout(timeout);
-    const value = e.target.value;
-    timeout = setTimeout(async () => {
-      if (!value) {
-        displayUsers();
-        return;
-      }
+  removeChatAndTextarea(search, container);
 
-      const users = await getQueryUsers(value);
-      displaySearchedUsers(users);
-    }, 300);
-  });
+  getInputToDisplaySearchedUsers(search, timeout);
+
+  displayUsersOnBlur(search);
+
+  clearInputBtn(search);
+
+  clearSearchInput(search);
 }

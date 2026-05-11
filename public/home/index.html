@@ -24,22 +24,36 @@
               id="findUsers"
               title="Search for friends and other Users"
             />
+            <button class="clearInput" id="clearInput" title="Clear Input">
+              <span class="material-symbols-outlined"> close_small </span>
+            </button>
           </div>
           <ul class="user-list" id="user-list"></ul>
         </aside>
 
         <section class="chat-area">
           <div class="chat-messages" id="chatMessages"></div>
-          <div class="chat-input-area">
-            <textarea
-              id="messageInput"
-              placeholder="Type a message..."
-              rows="1"
-              autofocus
-              title="Message"
-            ></textarea>
-            <button id="sendBtn" title="Send Message">
-              <span class="material-symbols-outlined sendBtn"> send </span>
+          <div class="chat-input-area" id="chat-input-area">
+            <div class="inputField">
+              <textarea
+                id="messageInput"
+                placeholder="Type a message..."
+                rows="1"
+                autofocus
+                title="Message"
+              ></textarea>
+              <button class="get-file-icon" id="getFileIcon">
+                <span class="material-symbols-outlined"> attach_file </span>
+              </button>
+              <input
+                type="file"
+                name="fileInput"
+                id="fileInput"
+                accept="image/* , .pdf, .zip"
+              />
+            </div>
+            <button class="sendBtn" id="sendBtn" title="Send Message">
+              <span class="material-symbols-outlined sendBtnIcon"> send </span>
             </button>
           </div>
         </section>

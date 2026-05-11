@@ -1,9 +1,8 @@
 import { isUserLogged } from "./auth.js";
-import { displayUsers, initUserSearch } from "./users.js";
-import { initChatEvents } from "./chat.js";
-import { initSocket, listenToEvents } from "./socket.js";
+import { displayUsers } from "./users.js";
+import { initialise } from "./eventListeners.js";
 
-async function init() {
+export async function verifyUser() {
   const loggedIn = await isUserLogged();
   if (!loggedIn) {
     window.location.href = "/auth";
@@ -13,10 +12,4 @@ async function init() {
 }
 
 //initialization
-window.addEventListener("DOMContentLoaded", () => {
-  init();
-  initChatEvents();
-  initUserSearch();
-  initSocket();
-  listenToEvents();
-});
+initialise();

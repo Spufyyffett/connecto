@@ -13,7 +13,6 @@ export async function isUserLogged() {
 
     const data = await verifyToken(token);
     state.currUser = data.user.sub;
-    // document.getElementById("user-name").innerText += state.currUser;
 
     return true;
   } catch (error) {

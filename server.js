@@ -3,6 +3,7 @@ const { initSocket } = require("./socketServer");
 const express = require("express");
 const http = require("http");
 require("dotenv").config();
+// const path = require("path");
 
 const app = express();
 const server = http.createServer(app);
@@ -11,6 +12,7 @@ initSocket(server);
 
 app.use(express.json());
 app.use(express.static("public"));
+app.use("/uploads", express.static("data/uploads"));
 app.get("/", (req, res) => {
   res.redirect("/auth");
 });

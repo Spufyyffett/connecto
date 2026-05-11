@@ -24,14 +24,42 @@ exports.getMessages = async (req, res) => {
 exports.sendMessage = async (req, res) => {
   try {
     const messageDB = await readJSON("./data/messagesDB.json");
-
     const newMessage = {
-      id: messageDB.length ? messageDB.at(-1).id + 1 : 1,
-      sender: req.body.currUser,
-      receiver: req.body.selectedUser,
-      messageContent: req.body.message?.toString() || "",
-      time: Date.now(),
+      id: null,
+      sender: null,
+      receiver: null,
+      messageContent: null,
+      isFile: null,
+      fileName: null,
+      fileURL: null,
+      fileSize: null,
+      MIMEtype: null,
+      time: null,
     };
+
+    if (req.file) {
+      newMessage.id = messageDB.length ? messageDB.at(-1).id + 1 : 1;
+      newMessage.sender = req.body.currUser;
+      newMessage.receiver = req.body.selectedUser;
+      newMessage.messageContent = req.body.message || "";
+      newMessage.isFile = true;
+      newMessage.fileName = req.file.originalname;
+      newMessage.fileURL = `/uploads/${req.file.filename}`;
+      newMessage.fileSize = req.file.size;
+      newMessage.MIMEtype = req.file.mimetype;
+      newMessage.time = Date.now();
+    } else {
+      newMessage.id = messageDB.length ? messageDB.at(-1).id + 1 : 1;
+      newMessage.sender = req.body.currUser;
+      newMessage.receiver = req.body.selectedUser;
+      newMessage.messageContent = req.body.message || "";
+      newMessage.isFile = false;
+      newMessage.fileName = null;
+      newMessage.fileURL = null;
+      newMessage.fileSize = null;
+      newMessage.MIMEtype = null;
+      newMessage.time = Date.now();
+    }
 
     if (!newMessage.sender || !newMessage.receiver) {
       return res
@@ -39,7 +67,7 @@ exports.sendMessage = async (req, res) => {
         .json({ success: false, note: "Sender and receiver name needed" });
     }
 
-    if (!newMessage.messageContent) {
+    if (!newMessage.messageContent && newMessage.isFile === false) {
       return res.status(400).json({ success: false, note: "Empty message" });
     }
 
@@ -47,13 +75,9 @@ exports.sendMessage = async (req, res) => {
 
     await writeJSON("./data/messagesDB.json", messageDB);
 
-    res.json({ success: true, note: "Message stored" });
+    res.json({ success: true, note: "Message stored", info: newMessage });
 
-    sendToUser(req.body.selectedUser, "liveChat", {
-      sender: req.body.currUser,
-      receiver: req.body.selectedUser,
-      messageContent: req.body.message?.toString() || "",
-    });
+    sendToUser(req.body.selectedUser, "liveChat", newMessage);
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, note: "Something went wrong" });
