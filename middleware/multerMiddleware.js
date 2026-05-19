@@ -14,6 +14,18 @@ const supportedMIME = [
   "image/png",
   "image/jpeg",
   "image/jpg",
+  "video/mp4",
+  "video/mpeg",
+  "video/webm",
+  "video/matroska",
+  "audio/mpeg",
+  "audio/ogg",
+  "audio/mp4",
+  "audio/mp4",
+  "application/vnd.rar",
+  "application/x-7z-compressed",
+  "application/msword",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
   "application/pdf",
   "application/zip",
   "application/x-zip-compressed",
@@ -25,7 +37,6 @@ const upload = multer({
     fileSize: 40 * 1024 * 1024,
   },
   fileFilter: function (req, file, cb) {
-    console.log(file.mimetype);
     if (supportedMIME.includes(file.mimetype)) {
       cb(null, true);
     } else {

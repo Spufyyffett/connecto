@@ -229,44 +229,115 @@ img {
   margin-top: 5px;
 }
 
-.message {
+.message-wrapper {
+  display: flex;
+  flex-direction: column;
   max-width: 70%;
+  margin-bottom: 0.8rem;
+}
+
+.message-wrapper.sent {
+  align-self: flex-end;
+  align-items: flex-end;
+}
+
+.message-wrapper.received {
+  align-self: flex-start;
+  align-items: flex-start;
+}
+
+.message {
   padding: 0.6rem 1rem;
   border-radius: 1.1rem;
   font-size: 1rem;
   font-weight: 600;
+  width: fit-content;
 }
 
-.received {
-  background: var(--white-smoke);
-  align-self: flex-start;
-  color: var(--black);
-}
-
-.received a {
-  color: var(--black);
-  text-decoration: none;
-  transition: text-decoration 300ms ease;
-}
-
-.received a:hover {
-  text-decoration: underline;
-}
-
-.sent a {
-  color: var(--black);
-  text-decoration: none;
-  transition: text-decoration 300ms ease;
-}
-
-.sent a:hover {
-  text-decoration: underline;
-}
-
-.sent {
+.message-wrapper.sent .message {
   background: var(--crimson);
   color: var(--white);
-  align-self: flex-end;
+  border-bottom-right-radius: 0.3rem;
+}
+
+.message-wrapper.received .message {
+  background: var(--white-smoke);
+  color: var(--black);
+  border-bottom-left-radius: 0.3rem;
+}
+
+.message-wrapper.received a {
+  color: var(--black);
+  text-decoration: none;
+  transition: text-decoration 300ms ease;
+}
+
+.message-wrapper.sent a {
+  color: var(--white);
+  text-decoration: none;
+  transition: text-decoration 300ms ease;
+}
+
+.message-wrapper a:hover {
+  text-decoration: underline;
+}
+
+.message-wrapper.received .file-icon-part {
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.message-wrapper.sent .file-icon-part {
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.timeStamp {
+  font-size: 0.7rem;
+  font-weight: 600;
+  opacity: 1;
+  margin-top: 4px;
+  color: var(--black);
+}
+
+.file-link-wrapper {
+  display: flex;
+  align-items: center;
+  text-decoration: none !important;
+  color: inherit;
+  min-width: 200px;
+  max-width: 100%;
+}
+
+.file-icon-part {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 12px;
+  margin-right: 12px;
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.file-icon-part .material-symbols-outlined {
+  font-size: 32px;
+}
+
+.file-info-part {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.file-name-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-sub-label {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  text-transform: uppercase;
 }
 
 .chat-input-area {
