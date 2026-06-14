@@ -11,6 +11,18 @@ const {
 
 router.get("/", authMiddlewareHTTP, getMessages);
 router.post("/", authMiddlewareHTTP, sendMessage);
-router.post("/upload", authMiddlewareHTTP, upload.single("file"), sendMessage);
+router.post(
+  "/upload",
+  authMiddlewareHTTP,
+  (req, res, next) => {
+    upload.single("file")(req, res, (err) => {
+      if (err) {
+        return res.status(400).json({ note: err.message });
+      }
+      next();
+    });
+  },
+  sendMessage,
+);
 
 module.exports = router;

@@ -147,7 +147,7 @@ export async function sendFileFromUser(file) {
     }
 
     const data = await sendFile(file);
-    if (!data.success) alert("Error " + data.note);
+    if (!data.success) alert("Error: " + data.note);
 
     const chatContainer = document.getElementById("chatMessages");
 
@@ -158,7 +158,8 @@ export async function sendFileFromUser(file) {
     div.classList.add("message");
 
     if (data.info.MIMEtype && data.info.MIMEtype.startsWith("image/")) {
-      div.innerHTML = `<img src="http://localhost:5500${data.info.fileURL}" class="chat-image" alt="${data.info.fileName}" title="${data.info.fileName}" />`;
+      const fileUrl = `http://localhost:5500${data.info.fileURL}`;
+      div.innerHTML = `<a href="${fileUrl}" target="_blank"><img src="http://localhost:5500${data.info.fileURL}" class="chat-image" alt="${data.info.fileName}" title="${data.info.fileName}" /></a>`;
       const img = div.querySelector("img");
       img.onload = () => scrollToBottom(chatContainer);
     } else {

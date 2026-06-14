@@ -1,55 +1,82 @@
-# ChatApp
+<p align="center">
+  <img src="screenshots/logo.svg" alt="Logo" >
+</p>
 
-A real-time chat application built with Node.js, Express, Socket.IO, and JWT authentication. Users can register, connect with other users, and exchange messages instantly through a web interface.
+<h1 align="center">Connecto</h1>
 
-## Features
+<h3 align="center">A real-time chat application built with Node.js, Express, Socket.IO, and JWT authentication. Users can register, connect with other users, and exchange messages instantly through a web interface.</h3>
 
-- User authentication (Login/Register)
-- Real-time messaging
-- Secure password handling
-- Online/offline status indicators
+<p align="center">
+  <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js" style="border-radius: 8px;">
+  <img src="https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express.js" style="border-radius: 8px;">
+  <img src="https://img.shields.io/badge/Socket.IO-010101?style=for-the-badge&logo=socketdotio&logoColor=white" alt="Socket.IO" style="border-radius: 8px;">
+  <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="MIT License" style="border-radius: 8px;">
+</p>
 
-## Tech Stack
+## 🖼️ Preview
 
-### Frontend
+<p align="center">
+  <img src="screenshots/preview.gif" alt="Preview of Connecto" >
+</p>
+
+## ✨ Features
+
+- 🔐 User authentication (Login/Register)
+- ⚡ Real-time messaging
+- 🔒 Secure password handling
+- 🟢 Online/offline status indicators
+
+## 🛠️ Tech Stack
+
+### 🎨 Frontend
 
 - HTML
 - CSS
 - JavaScript
 
-### Backend
+### ⚙️ Backend
 
 - Node.js
 - Express.js
 
-### Database
+### 📁 Database
 
 - Uses a JSON file as a lightweight storage solution suitable for small-scale applications and learning purposes.
 
-### Other Tools
+### 🧰 Other Tools
 
 - Socket.IO
 - JWT Authentication
 - Bcrypt
 - Multer
 
-## Screenshots
+## 📸 Screenshots
 
-### Login/Register Page
+### 🔑 Login/Register Page
 
-![Login](screenshots/login.png)
+<p align="center">
+  <img src="screenshots/login.png" alt="Login" >
+</p>
 
-![Register](screenshots/register.png)
+<p align="center">
+  <img src="screenshots/register.png" alt="Register" >
+</p>
 
-### Chat Interface
+### 💬 Chat Interface
 
-![Home](screenshots/home.png)
+<p align="center">
+  <img src="screenshots/home.png" alt="Home" >
+</p>
 
-![Chat](screenshots/chat1.png)
+<p align="center">
+  <img src="screenshots/chat1.png" alt="Chat" >
+</p>
 
-![Chat](screenshots/chat2.png)
+<p align="center">
+  <img src="screenshots/chat2.png" alt="Chat" >
+</p>
 
-## Project Structure
+## 📂 Project Structure
 
 ```text
 📁 connecto/
@@ -113,46 +140,64 @@ A real-time chat application built with Node.js, Express, Socket.IO, and JWT aut
     ├── 📄 README.md
     ├── 🟨 server.js
     └── 🟨 socketServer.js
-
 ```
 
-## Key Learnings
+## 🧠 Key Learnings
 
-- Real-time communication using Socket.IO
-- Authentication using JWT
-- Password hashing with Bcrypt
-- File uploads with Multer
-- Backend development with Express.js
+1. Real-time communication using Socket.IO
+2. Authentication using JWT
+3. Password hashing with Bcrypt
+4. File uploads with Multer
+5. Backend development with Express.js
 
-## Note
+## 📝 Note
 
 - The maximum file size for uploads is **40 MB**.
 - Only the following file types are supported:
-  1. **Images**
-     - PNG
-     - JPEG (.jpeg, .jpg)
+  1.  🖼️ Images
+      - PNG: .png
+      - JPEG / JPG: .jpeg, .jpg
+      - WebP: .webp
+      - GIF: .gif
+      - SVG: .svg
+      - ICO (Icon): .ico
 
-  2. **Videos**
-     - MP4
-     - MPEG
-     - WebM
-     - MKV (Matroska)
+  2.  🎥 Videos
+      - MP4: .mp4
+      - MPEG: .mpeg, .mpg
+      - WebM: .webm
+      - Matroska: .mkv
 
-  3. **Audio**
-     - MP3
-     - MPEG Audio
-     - OGG
+  3.  🎵 Audio
+      - AAC: .aac
+      - WebM Audio: .weba
+      - MP3: .mp3
+      - Ogg Audio: .ogg, .oga
+      - MP4 Audio: .m4a
 
-  4. **Documents**
-     - PDF
-     - Microsoft Word (.doc, .docx)
+  4.  💻 Text & Code
+      - Plain Text: .txt
+      - CSV: .csv
+      - CSS: .css
+      - HTML: .html, .htm
+      - JavaScript: .js
+      - Markdown: .md
+      - XML: .xml
+      - JSON: .json
 
-  5. **Compressed Files**
-     - ZIP
-     - RAR
-     - 7Z
+  5.  📊 Documents & Presentations
+      - PDF: .pdf
+      - Word Document: .docx, .doc
+      - Excel Spreadsheet: .xlsx, .xls
+      - PowerPoint Presentation: .pptx, .ppt
 
-## Installation
+  6.  📦 Archives & Binary
+      - ZIP Archive: .zip
+      - 7-Zip Archive: .7z
+      - RAR Archive: .rar
+      - Octet-Stream (Binary Data): .bin (or generic unstructured file data)
+
+## 🚀 Installation
 
 1. Clone the repository
 
@@ -160,7 +205,7 @@ A real-time chat application built with Node.js, Express, Socket.IO, and JWT aut
 git clone <repo-url>
 ```
 
-### Example
+### 📋 Example
 
 ```bash
 git clone https://github.com/Spufyyffett/connecto.git
@@ -178,7 +223,7 @@ cd connecto
 npm install
 ```
 
-4. Create a .env file and add this string in it
+4. Create a .env file and add this string in it (refer .env.example)
 
 ```env
 JWT_SECRET="your_secret_key"
@@ -190,7 +235,13 @@ JWT_SECRET="your_secret_key"
 npm start
 ```
 
-## Usage
+or
+
+```bash
+npm run dev
+```
+
+## 💻 Usage
 
 1. Register a new account.
 2. Login using your credentials.
@@ -198,18 +249,22 @@ npm start
 4. If running locally, create multiple accounts for testing conversations.
 5. Start exchanging messages in real time.
 
-## Future Improvements
+## ⚠️ Disclaimer
 
-- Voice messages
-- Video calling
-- Message reactions
-- Message deletion
-- End-to-end encryption
+This project is intended strictly for **educational and learning purposes**. It has not been audited for security and likely contains vulnerabilities. **Do not deploy this in production or use it for real-world applications.**
 
-## Author
+## 🔮 Future Improvements
+
+- 🎙️ Voice messages
+- 📹 Video calling
+- ❤️ Message reactions
+- 🗑️ Message deletion
+- 🔒 End-to-end encryption
+
+## 👤 Author
 
 Deon
 
-## License
+## 📄 License
 
 MIT License
