@@ -21,7 +21,6 @@ const supportedMIME = [
   "audio/mpeg",
   "audio/ogg",
   "audio/mp4",
-  "audio/mp4",
   "application/vnd.rar",
   "application/x-7z-compressed",
   "application/msword",
